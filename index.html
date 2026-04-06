@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登降園・欠席連絡</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="tabs">
+    <div class="tabs-left">
+      <button class="tab-btn active" data-tab="record">記録</button>
+      <button class="tab-btn" data-tab="month">月間表示</button>
+      <button class="tab-btn" data-tab="admin">管理</button>
+      <button class="tab-btn" data-tab="version">バージョン</button>
+    </div>
+  </div>
+
+  <section id="tab-record" class="tab-panel active">
+    <div class="header-card">
+      <div>
+        <h1 class="app-title">登降園・欠席連絡</h1>
+        <div id="today-label" class="today-label"></div>
+      </div>
+    </div>
+
+    <div class="control-card">
+      <div class="control-group">
+        <label for="date-input" class="control-label">日付</label>
+        <input id="date-input" class="date-input" type="date">
+      </div>
+
+      <div class="control-group">
+        <label for="class-select" class="control-label">組</label>
+        <select id="class-select" class="class-select"></select>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">記録種別</div>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="mode" value="in">登園</label>
+          <label class="radio-item"><input type="radio" name="mode" value="out">降園</label>
+          <label class="radio-item"><input type="radio" name="mode" value="absent">欠席連絡</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend-card">
+      <span>▲ 片方のみ記録</span>
+      <span>● 登園・降園とも記録済み</span>
+      <span>欠 欠席連絡あり</span>
+    </div>
+
+    <div id="children-list" class="children-list"></div>
+  </section>
+
+  <section id="tab-month" class="tab-panel">
+    <div class="month-nav-card">
+      <button id="prev-month-btn" class="month-nav-btn">前の月</button>
+      <div id="month-title" class="month-title">-</div>
+      <button id="next-month-btn" class="month-nav-btn">次の月</button>
+    </div>
+    <div id="view-header" class="view-header"></div>
+    <div class="table-wrap">
+      <table id="month-table"></table>
+    </div>
+  </section>
+
+  <section id="tab-admin" class="tab-panel">
+    <div class="admin-wrap">
+      <button id="backup-btn" class="admin-btn">バックアップ</button>
+      <button id="restore-btn" class="admin-btn">データの復元</button>
+      <button id="delete-btn" class="admin-btn danger-btn">データの削除</button>
+      <input type="file" id="restore-file" accept=".zip" hidden>
+    </div>
+  </section>
+
+  <section id="tab-version" class="tab-panel">
+    <div class="version-wrap">
+      <div class="version-row">
+        <div class="version-label">現在のバージョン</div>
+        <div id="current-version" class="version-value">---</div>
+      </div>
+      <div class="version-row">
+        <div class="version-label">最新のバージョン</div>
+        <div id="latest-version" class="version-value">---</div>
+      </div>
+      <div class="version-actions">
+        <button id="update-btn" class="admin-btn" disabled>更新する</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="parent-screen" class="overlay hidden">
+    <div class="parent-card">
+      <div class="parent-title">確認してください</div>
+      <div id="parent-class" class="parent-class"></div>
+      <div id="parent-name" class="parent-name"></div>
+      <button id="parent-action-btn" class="parent-action-btn"></button>
+      <button id="parent-cancel-btn" class="parent-cancel-btn">戻る</button>
+    </div>
+  </div>
+
+  <div id="absence-screen" class="overlay hidden">
+    <div class="parent-card absence-card">
+      <div class="parent-title">欠席理由を選んでください</div>
+      <div id="absence-class" class="parent-class"></div>
+      <div id="absence-name" class="parent-name absence-name"></div>
+      <div id="absence-reason-list" class="absence-reason-list"></div>
+      <input id="absence-other-input" class="absence-other-input" type="text" placeholder="その他の理由を入力" disabled>
+      <button id="absence-submit-btn" class="parent-action-btn mode-absent">欠席連絡</button>
+      <button id="absence-cancel-btn" class="parent-cancel-btn">戻る</button>
+    </div>
+  </div>
+
+  <div id="result-dialog" class="overlay hidden">
+    <div class="dialog-card">
+      <div id="dialog-child-name" class="dialog-child-name"></div>
+      <div id="dialog-time" class="dialog-time"></div>
+      <div id="dialog-message" class="dialog-message"></div>
+      <button id="dialog-ok-btn" class="dialog-ok-btn">OK</button>
+    </div>
+  </div>
+
+  <script src="./jszip.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js");
+    }
+  </script>
+</body>
+</html>

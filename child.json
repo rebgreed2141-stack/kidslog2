@@ -1,0 +1,309 @@
+{
+  "classes": [
+    {
+      "id": "kamoshika",
+      "name": "かもしか"
+    },
+    {
+      "id": "nousagi",
+      "name": "のうさぎ"
+    },
+    {
+      "id": "risu",
+      "name": "りす"
+    },
+    {
+      "id": "koguma",
+      "name": "こぐま"
+    },
+    {
+      "id": "donguri",
+      "name": "どんぐり"
+    },
+    {
+      "id": "momiji",
+      "name": "もみじ"
+    }
+  ],
+  "children": [
+    {
+      "id": "c0001",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 1,
+      "name": "たむら　みお",
+      "gender": "f",
+      "birthDate": "2020/4/4"
+    },
+    {
+      "id": "c0002",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 2,
+      "name": "なかごう　ゆの",
+      "gender": "f",
+      "birthDate": "2020/4/7"
+    },
+    {
+      "id": "c0003",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 3,
+      "name": "つちや　はるひ",
+      "gender": "f",
+      "birthDate": "2020/4/8"
+    },
+    {
+      "id": "c0004",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 4,
+      "name": "たけむら　りつき",
+      "gender": "m",
+      "birthDate": "2020/6/12"
+    },
+    {
+      "id": "c0005",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 5,
+      "name": "むらかみ　ももの",
+      "gender": "f",
+      "birthDate": "2020/6/24"
+    },
+    {
+      "id": "c0006",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 6,
+      "name": "いとう　こうま",
+      "gender": "m",
+      "birthDate": "2020/7/14"
+    },
+    {
+      "id": "c0007",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 7,
+      "name": "さいとう　ゆづき",
+      "gender": "m",
+      "birthDate": "2020/10/4"
+    },
+    {
+      "id": "c0008",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 8,
+      "name": "ふくだ　あおい",
+      "gender": "m",
+      "birthDate": "2020/11/24"
+    },
+    {
+      "id": "c0009",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 9,
+      "name": "おおさわ　ゆずは",
+      "gender": "f",
+      "birthDate": "2021/2/17"
+    },
+    {
+      "id": "c0010",
+      "classId": "kamoshika",
+      "className": "かもしか",
+      "no": 10,
+      "name": "おおたに　とうま",
+      "gender": "m",
+      "birthDate": "2021/2/26"
+    },
+    {
+      "id": "c0011",
+      "classId": "nousagi",
+      "className": "のうさぎ",
+      "no": 1,
+      "name": "うすい　そうすけ",
+      "gender": "m",
+      "birthDate": "2021/7/20"
+    },
+    {
+      "id": "c0012",
+      "classId": "nousagi",
+      "className": "のうさぎ",
+      "no": 2,
+      "name": "ほそかわ　ゆあ",
+      "gender": "f",
+      "birthDate": "2021/8/30"
+    },
+    {
+      "id": "c0013",
+      "classId": "nousagi",
+      "className": "のうさぎ",
+      "no": 3,
+      "name": "ひばら　あらた",
+      "gender": "m",
+      "birthDate": "2022/1/6"
+    },
+    {
+      "id": "c0014",
+      "classId": "nousagi",
+      "className": "のうさぎ",
+      "no": 4,
+      "name": "いいじま　しゅうた",
+      "gender": "m",
+      "birthDate": "2022/2/1"
+    },
+    {
+      "id": "c0015",
+      "classId": "risu",
+      "className": "りす",
+      "no": 1,
+      "name": "さいとう　あさひ",
+      "gender": "m",
+      "birthDate": "2022/4/24"
+    },
+    {
+      "id": "c0016",
+      "classId": "risu",
+      "className": "りす",
+      "no": 2,
+      "name": "おおや　はなえ",
+      "gender": "f",
+      "birthDate": "2022/6/11"
+    },
+    {
+      "id": "c0017",
+      "classId": "risu",
+      "className": "りす",
+      "no": 3,
+      "name": "こばやし　まなや",
+      "gender": "m",
+      "birthDate": "2022/8/1"
+    },
+    {
+      "id": "c0018",
+      "classId": "risu",
+      "className": "りす",
+      "no": 4,
+      "name": "さかい　せんり",
+      "gender": "f",
+      "birthDate": "2022/8/5"
+    },
+    {
+      "id": "c0019",
+      "classId": "risu",
+      "className": "りす",
+      "no": 5,
+      "name": "いとう　ひなた",
+      "gender": "m",
+      "birthDate": "2022/9/1"
+    },
+    {
+      "id": "c0020",
+      "classId": "risu",
+      "className": "りす",
+      "no": 6,
+      "name": "みずぬま　えな",
+      "gender": "f",
+      "birthDate": "2022/9/11"
+    },
+    {
+      "id": "c0021",
+      "classId": "risu",
+      "className": "りす",
+      "no": 7,
+      "name": "わたなべ　ゆいと",
+      "gender": "m",
+      "birthDate": "2022/10/2"
+    },
+    {
+      "id": "c0022",
+      "classId": "koguma",
+      "className": "こぐま",
+      "no": 1,
+      "name": "たけむら　あき",
+      "gender": "f",
+      "birthDate": "2023/4/19"
+    },
+    {
+      "id": "c0023",
+      "classId": "koguma",
+      "className": "こぐま",
+      "no": 2,
+      "name": "たからだ　かいと",
+      "gender": "m",
+      "birthDate": "2023/7/5"
+    },
+    {
+      "id": "c0024",
+      "classId": "koguma",
+      "className": "こぐま",
+      "no": 3,
+      "name": "たなか　てん",
+      "gender": "f",
+      "birthDate": "2023/7/6"
+    },
+    {
+      "id": "c0025",
+      "classId": "koguma",
+      "className": "こぐま",
+      "no": 4,
+      "name": "ひらやま　がく",
+      "gender": "m",
+      "birthDate": "2023/8/15"
+    },
+    {
+      "id": "c0026",
+      "classId": "donguri",
+      "className": "どんぐり",
+      "no": 1,
+      "name": "みずぬま　せな",
+      "gender": "f",
+      "birthDate": "2024/4/10"
+    },
+    {
+      "id": "c0027",
+      "classId": "donguri",
+      "className": "どんぐり",
+      "no": 2,
+      "name": "さかい　あんり",
+      "gender": "f",
+      "birthDate": "2024/5/20"
+    },
+    {
+      "id": "c0028",
+      "classId": "donguri",
+      "className": "どんぐり",
+      "no": 3,
+      "name": "かとう　そら",
+      "gender": "m",
+      "birthDate": "2024/9/10"
+    },
+    {
+      "id": "c0029",
+      "classId": "momiji",
+      "className": "もみじ",
+      "no": 1,
+      "name": "いとう　たいせい",
+      "gender": "m",
+      "birthDate": "2025/6/13"
+    },
+    {
+      "id": "c0030",
+      "classId": "momiji",
+      "className": "もみじ",
+      "no": 2,
+      "name": "おおつか　あさひ",
+      "gender": "m",
+      "birthDate": "2025/7/26"
+    },
+    {
+      "id": "c0031",
+      "classId": "nousagi",
+      "className": "のうさぎ",
+      "no": 5,
+      "name": "おおしま　かなた",
+      "gender": "m",
+      "birthDate": "2021/12/27"
+    }
+  ]
+}
