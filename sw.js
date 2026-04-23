@@ -1,11 +1,9 @@
-const CACHE_NAME = "kidslog2-cache-v2";
+const CACHE_NAME = "kidslog2-cache-v3";
 const CORE_ASSETS = [
   "./",
   "./index.html",
   "./app.js",
   "./styles.css",
-  "./child.json",
-  "./staff.json",
   "./manifest.json",
   "./version.json",
   "./jszip.min.js",
@@ -60,6 +58,11 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
+
+  if (url.origin === self.location.origin && /\/(child_[^/]+\.json|staff_[^/]+\.json)$/.test(url.pathname)) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
 
   if (url.origin === self.location.origin && url.pathname.endsWith("/version.json")) {
     if (event.request.cache === "no-store") {

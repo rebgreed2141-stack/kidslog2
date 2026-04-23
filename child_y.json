@@ -1,0 +1,471 @@
+{
+  "classes": [
+    {
+      "id": "kamoshika",
+      "name": "かもしか"
+    },
+    {
+      "id": "nousagi",
+      "name": "のうさぎ"
+    },
+    {
+      "id": "risu",
+      "name": "りす"
+    },
+    {
+      "id": "koguma",
+      "name": "こぐま"
+    },
+    {
+      "id": "donguri",
+      "name": "どんぐり"
+    },
+    {
+      "id": "momiji",
+      "name": "もみじ"
+    }
+  ],
+  "children": [
+  {
+    "id":"c0001",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":1,
+    "name":"添田　稟乃",
+    "gender":"f",
+    "birthDate":"2020/04/02"
+  },
+  {
+    "id":"c0002",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":2,
+    "name":"杉下　七渚",
+    "gender":"f",
+    "birthDate":"2020/05/07"
+  },
+  {
+    "id":"c0003",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":3,
+    "name":"見目　知紗希",
+    "gender":"f",
+    "birthDate":"2020/07/21"
+  },
+  {
+    "id":"c0004",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":4,
+    "name":"山田　結衣花",
+    "gender":"f",
+    "birthDate":"2020/08/20"
+  },
+  {
+    "id":"c0005",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":5,
+    "name":"東海林　寛太",
+    "gender":"m",
+    "birthDate":"2020/09/15"
+  },
+  {
+    "id":"c0006",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":6,
+    "name":"柳岡　燈和",
+    "gender":"m",
+    "birthDate":"2020/11/24"
+  },
+  {
+    "id":"c0007",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":7,
+    "name":"佐々木　結翔",
+    "gender":"m",
+    "birthDate":"2021/02/08"
+  },
+  {
+    "id":"c0008",
+    "classId":"kamoshika",
+    "className":"かもしか",
+    "no":8,
+    "name":"男谷　志帆",
+    "gender":"f",
+    "birthDate":"2021/03/12"
+  },
+  {
+    "id":"c0009",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":1,
+    "name":"松本　大知",
+    "gender":"m",
+    "birthDate":"2021/04/13"
+  },
+  {
+    "id":"c0010",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":2,
+    "name":"川上　紬",
+    "gender":"f",
+    "birthDate":"2021/05/13"
+  },
+  {
+    "id":"c0011",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":3,
+    "name":"鈴木 美琴",
+    "gender":"f",
+    "birthDate":"2021/07/12"
+  },
+  {
+    "id":"c0012",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":4,
+    "name":"津浦　瑠斗",
+    "gender":"m",
+    "birthDate":"2021/08/05"
+  },
+  {
+    "id":"c0013",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":5,
+    "name":"永井　柚羽",
+    "gender":"f",
+    "birthDate":"2021/08/29"
+  },
+  {
+    "id":"c0014",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":6,
+    "name":"中山　煌太",
+    "gender":"m",
+    "birthDate":"2021/09/28"
+  },
+  {
+    "id":"c0015",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":7,
+    "name":"チャンブリス央莉奈彩萌",
+    "gender":"f",
+    "birthDate":"2021/10/27"
+  },
+  {
+    "id":"c0016",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":8,
+    "name":"吉川　叶愛",
+    "gender":"f",
+    "birthDate":"2022/02/09"
+  },
+  {
+    "id":"c0017",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":9,
+    "name":"添田　蒼乃",
+    "gender":"m",
+    "birthDate":"2022/02/12"
+  },
+  {
+    "id":"c0018",
+    "classId":"nousagi",
+    "className":"のうさぎ",
+    "no":10,
+    "name":"須藤　寧々",
+    "gender":"f",
+    "birthDate":"2022/02/17"
+  },
+  {
+    "id":"c0019",
+    "classId":"risu",
+    "className":"りす",
+    "no":1,
+    "name":"髙橋　俐王",
+    "gender":"m",
+    "birthDate":"2022/04/18"
+  },
+  {
+    "id":"c0020",
+    "classId":"risu",
+    "className":"りす",
+    "no":2,
+    "name":"土田　明季",
+    "gender":"f",
+    "birthDate":"2022/04/25"
+  },
+  {
+    "id":"c0021",
+    "classId":"risu",
+    "className":"りす",
+    "no":3,
+    "name":"古谷　瑠夏",
+    "gender":"f",
+    "birthDate":"2022/07/01"
+  },
+  {
+    "id":"c0022",
+    "classId":"risu",
+    "className":"りす",
+    "no":4,
+    "name":"柳田　紗来",
+    "gender":"f",
+    "birthDate":"2022/07/06"
+  },
+  {
+    "id":"c0023",
+    "classId":"risu",
+    "className":"りす",
+    "no":5,
+    "name":"好田　守織",
+    "gender":"m",
+    "birthDate":"2022/07/12"
+  },
+  {
+    "id":"c0024",
+    "classId":"risu",
+    "className":"りす",
+    "no":6,
+    "name":"平野　滉",
+    "gender":"m",
+    "birthDate":"2022/11/19"
+  },
+  {
+    "id":"c0025",
+    "classId":"risu",
+    "className":"りす",
+    "no":7,
+    "name":"生田目　円佳",
+    "gender":"f",
+    "birthDate":"2022/12/14"
+  },
+  {
+    "id":"c0026",
+    "classId":"risu",
+    "className":"りす",
+    "no":8,
+    "name":"菊池　くるみ",
+    "gender":"f",
+    "birthDate":"2022/12/22"
+  },
+  {
+    "id":"c0027",
+    "classId":"risu",
+    "className":"りす",
+    "no":9,
+    "name":"室井　優希",
+    "gender":"f",
+    "birthDate":"2023/02/15"
+  },
+  {
+    "id":"c0028",
+    "classId":"risu",
+    "className":"りす",
+    "no":10,
+    "name":"川上　絃",
+    "gender":"f",
+    "birthDate":"2023/03/07"
+  },
+  {
+    "id":"c0029",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":1,
+    "name":"吉川　愛璃彩",
+    "gender":"f",
+    "birthDate":"2023/04/08"
+  },
+  {
+    "id":"c0030",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":2,
+    "name":"臼井　律喜",
+    "gender":"m",
+    "birthDate":"2023/04/13"
+  },
+  {
+    "id":"c0031",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":3,
+    "name":"松本　大河",
+    "gender":"m",
+    "birthDate":"2023/05/12"
+  },
+  {
+    "id":"c0032",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":4,
+    "name":"阿見　星奈",
+    "gender":"f",
+    "birthDate":"2023/06/07"
+  },
+  {
+    "id":"c0033",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":5,
+    "name":"印南　澄",
+    "gender":"m",
+    "birthDate":"2023/09/01"
+  },
+  {
+    "id":"c0034",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":6,
+    "name":"印南　果椰",
+    "gender":"f",
+    "birthDate":"2023/09/01"
+  },
+  {
+    "id":"c0035",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":7,
+    "name":"中山　稀太",
+    "gender":"m",
+    "birthDate":"2023/10/15"
+  },
+  {
+    "id":"c0036",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":8,
+    "name":"東海林　明日美",
+    "gender":"f",
+    "birthDate":"2023/10/20"
+  },
+  {
+    "id":"c0037",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":9,
+    "name":"佐藤　璃來",
+    "gender":"f",
+    "birthDate":"2023/11/19"
+  },
+  {
+    "id":"c0038",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":10,
+    "name":"佐々木　大翔",
+    "gender":"m",
+    "birthDate":"2023/12/02"
+  },
+  {
+    "id":"c0039",
+    "classId":"koguma",
+    "className":"こぐま",
+    "no":11,
+    "name":"櫻井　奏翔",
+    "gender":"m",
+    "birthDate":"2023/12/19"
+  },
+  {
+    "id":"c0040",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":1,
+    "name":"須藤　駕久",
+    "gender":"m",
+    "birthDate":"2024/04/11"
+  },
+  {
+    "id":"c0041",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":2,
+    "name":"久保　すみれ",
+    "gender":"f",
+    "birthDate":"2024/04/29"
+  },
+  {
+    "id":"c0042",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":3,
+    "name":"田代　瀬凪",
+    "gender":"m",
+    "birthDate":"2024/06/16"
+  },
+  {
+    "id":"c0043",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":4,
+    "name":"岸上　夢苺",
+    "gender":"f",
+    "birthDate":"2024/09/19"
+  },
+  {
+    "id":"c0044",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":5,
+    "name":"生田目　亮寿",
+    "gender":"m",
+    "birthDate":"2024/10/24"
+  },
+  {
+    "id":"c0045",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":6,
+    "name":"富川　楓麻",
+    "gender":"m",
+    "birthDate":"2025/02/13"
+  },
+  {
+    "id":"c0046",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":7,
+    "name":"齋藤　帆希",
+    "gender":"m",
+    "birthDate":"2025/03/19"
+  },
+  {
+    "id":"c0047",
+    "classId":"momiji",
+    "className":"もみじ",
+    "no":1,
+    "name":"東海林　瑚乃美",
+    "gender":"f",
+    "birthDate":"2025/04/07"
+  },
+  {
+    "id":"c0048",
+    "classId":"momiji",
+    "className":"もみじ",
+    "no":2,
+    "name":"柳田　莉来",
+    "gender":"f",
+    "birthDate":"2025/06/02"
+  },
+  {
+    "id":"c0049",
+    "classId":"momiji",
+    "className":"もみじ",
+    "no":3,
+    "name":"吉川　来愛",
+    "gender":"f",
+    "birthDate":"2025/10/03"
+  }
+]
+}

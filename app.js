@@ -3,6 +3,19 @@ const CSV_HEADER = ["monthKey", "date", "id", "name", "clock_in", "clock_out", "
 const FIXED_REASONS = ["都合", "早退", "様子見", "熱", "咳", "下痢", "病院", "その他"];
 const TEACHER_BY_CLASS_ID = {};
 const WEEKDAY_NAMES = ["日", "月", "火", "水", "木", "金", "土"];
+const FACILITY_STORAGE_KEY = "kidslog2_facility";
+const FACILITY_CONFIG = {
+  m: {
+    childFile: "./child_m.json",
+    staffFile: "./staff_m.json",
+    label: "こどもの森保育園"
+  },
+  y: {
+    childFile: "./child_y.json",
+    staffFile: "./staff_y.json",
+    label: "こどもの森You保育園"
+  }
+};
 
 let classMaster = [];
 let childMaster = [];
@@ -14,6 +27,7 @@ let currentContext = null;
 let swRegistration = null;
 let currentVersionText = "";
 let latestVersionText = "";
+let currentFacility = getSavedFacility();
 
 const el = {};
 
@@ -21,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   cacheElements();
   setupTabs();
   setupEventHandlers();
+  syncFacilityRadios();
   await loadChildMaster();
   await loadStaffMaster();
   selectedDateKey = getDateKey(new Date());
@@ -136,7 +151,7 @@ function setupEventHandlers() {
 }
 
 async function loadChildMaster() {
-  const response = await fetch("./child.json", { cache: "no-store" });
+  const response = await fetch(getCurrentFacilityConfig().childFile, { cache: "no-store" });
   const data = await response.json();
   classMaster = Array.isArray(data.classes) ? data.classes.slice() : [];
   childMaster = Array.isArray(data.children) ? data.children.slice() : [];
@@ -149,7 +164,7 @@ async function loadChildMaster() {
 
 async function loadStaffMaster() {
   try {
-    const response = await fetch("./staff.json", { cache: "no-store" });
+    const response = await fetch(getCurrentFacilityConfig().staffFile, { cache: "no-store" });
     const data = await response.json();
     Object.keys(TEACHER_BY_CLASS_ID).forEach((key) => delete TEACHER_BY_CLASS_ID[key]);
     if (data && typeof data === "object") {
@@ -376,10 +391,41 @@ function showAbsenceResultDialog(child, reason) {
 }
 
 function setupAdminButtons() {
+  document.querySelectorAll('input[name="facility"]').forEach((radio) => {
+    radio.addEventListener("change", handleFacilityChange);
+  });
   document.getElementById("backup-btn").addEventListener("click", backupCsv);
   document.getElementById("restore-btn").addEventListener("click", () => el.restoreFile.click());
   document.getElementById("restore-file").addEventListener("change", restoreCsv);
   document.getElementById("delete-btn").addEventListener("click", deleteAllData);
+}
+
+function getSavedFacility() {
+  const value = String(localStorage.getItem(FACILITY_STORAGE_KEY) || "m").trim();
+  return FACILITY_CONFIG[value] ? value : "m";
+}
+
+function getCurrentFacilityConfig() {
+  return FACILITY_CONFIG[currentFacility] || FACILITY_CONFIG.m;
+}
+
+function syncFacilityRadios() {
+  document.querySelectorAll('input[name="facility"]').forEach((radio) => {
+    radio.checked = radio.value === currentFacility;
+  });
+}
+
+function handleFacilityChange(e) {
+  const nextFacility = String(e.target.value || "").trim();
+  if (!FACILITY_CONFIG[nextFacility]) {
+    syncFacilityRadios();
+    return;
+  }
+  if (nextFacility === currentFacility) return;
+
+  localStorage.setItem(FACILITY_STORAGE_KEY, nextFacility);
+  currentFacility = nextFacility;
+  location.reload();
 }
 
 function loadDayData(dateKey) {
