@@ -4,6 +4,8 @@ const FIXED_REASONS = ["都合", "早退", "様子見", "熱", "咳", "下痢", 
 const TEACHER_BY_CLASS_ID = {};
 const WEEKDAY_NAMES = ["日", "月", "火", "水", "木", "金", "土"];
 const FACILITY_STORAGE_KEY = "kidslog2_facility";
+const MEMO_DATE_STORAGE_KEY = "dailyMemo_date";
+const MEMO_TEXT_STORAGE_KEY = "dailyMemo_text";
 const FACILITY_CONFIG = {
   m: {
     childFile: "./child_m.json",
@@ -47,6 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderChildrenList();
   renderMonthTitle();
   setupAdminButtons();
+  setupMemo();
   await setupVersionUi();
 });
 
@@ -81,6 +84,10 @@ function cacheElements() {
   el.monthTitle = document.getElementById("month-title");
   el.viewHeader = document.getElementById("view-header");
   el.monthTable = document.getElementById("month-table");
+  el.memoDateLabel = document.getElementById("memo-date-label");
+  el.memoText = document.getElementById("memo-text");
+  el.memoClearBtn = document.getElementById("memo-clear-btn");
+  el.memoSaveLabel = document.getElementById("memo-save-label");
 }
 
 function setupTabs() {
@@ -94,6 +101,10 @@ function setupTabs() {
       if (button.dataset.tab === "record") {
         renderTodayLabel();
         renderChildrenList();
+      }
+      if (button.dataset.tab === "memo") {
+        loadTodayMemo();
+        focusMemoText();
       }
       if (button.dataset.tab === "month") {
         monthCursor = selectedDateKey.slice(0, 7);
@@ -148,6 +159,56 @@ function setupEventHandlers() {
   el.updateBtn.addEventListener("click", updateApp);
   el.prevMonthBtn.addEventListener("click", () => moveMonth(-1));
   el.nextMonthBtn.addEventListener("click", () => moveMonth(1));
+}
+
+function setupMemo() {
+  loadTodayMemo();
+  el.memoText.addEventListener("input", saveTodayMemo);
+  el.memoClearBtn.addEventListener("click", clearTodayMemoByButton);
+  window.setInterval(clearMemoIfDateChanged, 60000);
+}
+
+function loadTodayMemo() {
+  clearMemoIfDateChanged();
+  const todayKey = getDateKey(new Date());
+  const todayDate = dateFromKey(todayKey);
+  const weekday = WEEKDAY_NAMES[todayDate.getDay()];
+  el.memoDateLabel.textContent = `${todayDate.getFullYear()}年${todayDate.getMonth() + 1}月${todayDate.getDate()}日（${weekday}）`;
+  el.memoText.value = localStorage.getItem(MEMO_TEXT_STORAGE_KEY) || "";
+  el.memoSaveLabel.textContent = "自動保存します";
+}
+
+function saveTodayMemo() {
+  clearMemoIfDateChanged();
+  localStorage.setItem(MEMO_DATE_STORAGE_KEY, getDateKey(new Date()));
+  localStorage.setItem(MEMO_TEXT_STORAGE_KEY, el.memoText.value);
+  el.memoSaveLabel.textContent = "保存しました";
+}
+
+function clearMemoIfDateChanged() {
+  const todayKey = getDateKey(new Date());
+  const savedDateKey = localStorage.getItem(MEMO_DATE_STORAGE_KEY) || todayKey;
+  if (savedDateKey !== todayKey) {
+    localStorage.setItem(MEMO_DATE_STORAGE_KEY, todayKey);
+    localStorage.removeItem(MEMO_TEXT_STORAGE_KEY);
+    if (el.memoText) el.memoText.value = "";
+  }
+}
+
+function clearTodayMemoByButton() {
+  if (!el.memoText.value) return;
+  if (!confirm("メモをすべて消します。よろしいですか？")) return;
+  localStorage.setItem(MEMO_DATE_STORAGE_KEY, getDateKey(new Date()));
+  localStorage.removeItem(MEMO_TEXT_STORAGE_KEY);
+  el.memoText.value = "";
+  el.memoSaveLabel.textContent = "クリアしました";
+  focusMemoText();
+}
+
+function focusMemoText() {
+  window.setTimeout(() => {
+    el.memoText.focus();
+  }, 0);
 }
 
 async function loadChildMaster() {

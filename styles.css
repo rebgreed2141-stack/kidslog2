@@ -25,7 +25,7 @@ button, select, input { font: inherit; }
 .tab-btn.active { background: #dfe9f3; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-.header-card, .control-card, .legend-card, .child-row, .admin-wrap, .version-wrap, .month-nav-card, .table-wrap {
+.header-card, .control-card, .legend-card, .child-row, .admin-wrap, .version-wrap, .month-nav-card, .table-wrap, .memo-wrap {
   border: 1px solid #d6dde5; border-radius: 14px; background: #fbfdff;
 }
 .header-card { padding: 16px 18px; margin-bottom: 14px; }
@@ -69,6 +69,55 @@ button, select, input { font: inherit; }
 }
 .child-clear-btn:hover { background: #ffe7e7; }
 .child-clear-spacer { width: 88px; height: 48px; }
+
+.memo-wrap {
+  padding: 16px;
+}
+.memo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.memo-title {
+  margin: 0 0 4px;
+  font-size: 28px;
+}
+.memo-date-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #4c4c4c;
+}
+.memo-clear-btn {
+  min-width: 120px;
+  min-height: 52px;
+  border: 1px solid #e0b2b2;
+  border-radius: 10px;
+  background: #fff2f2;
+  color: #8b3131;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.memo-clear-btn:hover { background: #ffe7e7; }
+.memo-text {
+  width: 100%;
+  min-height: 62vh;
+  resize: vertical;
+  border: 1px solid #b8c2cc;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 14px 16px;
+  font-size: 22px;
+  line-height: 1.7;
+}
+.memo-save-label {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #555;
+}
+
 .admin-wrap, .version-wrap { display: inline-flex; flex-direction: column; gap: 12px; padding: 16px; }
 .admin-btn {
   display: inline-flex; align-items: center; justify-content: center; min-height: 52px; min-width: 220px;
@@ -226,6 +275,10 @@ thead .sticky-name {
   .child-clear-spacer { width: 72px; height: 42px; }
   .parent-name { font-size: 34px; }
   .parent-action-btn { font-size: 34px; min-height: 82px; }
+  .memo-header { align-items: stretch; flex-direction: column; }
+  .memo-title { font-size: 24px; }
+  .memo-text { min-height: 58vh; font-size: 20px; }
+  .memo-clear-btn { width: 100%; }
   .version-row { grid-template-columns: 1fr; }
   .version-label, .version-value { font-size: 18px; }
   .month-nav-card { grid-template-columns: 1fr; }
