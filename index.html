@@ -44,6 +44,7 @@
           <label class="radio-item"><input type="radio" name="mode" value="in">登園</label>
           <label class="radio-item"><input type="radio" name="mode" value="out">降園</label>
           <label class="radio-item"><input type="radio" name="mode" value="absent">欠席連絡</label>
+          <label class="radio-item"><input type="radio" name="mode" value="edit">編集</label>
         </div>
       </div>
     </div>
@@ -134,6 +135,26 @@
       <input id="absence-other-input" class="absence-other-input" type="text" placeholder="その他の理由を入力" disabled>
       <button id="absence-submit-btn" class="parent-action-btn mode-absent">欠席連絡</button>
       <button id="absence-cancel-btn" class="parent-cancel-btn">戻る</button>
+    </div>
+  </div>
+
+  <div id="edit-screen" class="overlay hidden">
+    <div class="edit-card">
+      <div class="edit-header">
+        <div>
+          <div class="parent-title">登園・降園時間の編集</div>
+          <div id="edit-child-label" class="edit-child-label"></div>
+        </div>
+        <button id="edit-close-btn" class="parent-cancel-btn">戻る</button>
+      </div>
+      <div class="edit-month-nav">
+        <button id="edit-prev-month-btn" class="month-nav-btn">前の月</button>
+        <div id="edit-month-title" class="month-title">-</div>
+        <button id="edit-next-month-btn" class="month-nav-btn">次の月</button>
+      </div>
+      <div class="edit-table-wrap">
+        <table id="edit-table" class="edit-table"></table>
+      </div>
     </div>
   </div>
 

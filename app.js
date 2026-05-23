@@ -26,6 +26,8 @@ let selectedMode = "in";
 let selectedDateKey = "";
 let monthCursor = "";
 let currentContext = null;
+let currentEditChild = null;
+let currentEditMonth = "";
 let swRegistration = null;
 let currentVersionText = "";
 let latestVersionText = "";
@@ -70,6 +72,13 @@ function cacheElements() {
   el.absenceOtherInput = document.getElementById("absence-other-input");
   el.absenceSubmitBtn = document.getElementById("absence-submit-btn");
   el.absenceCancelBtn = document.getElementById("absence-cancel-btn");
+  el.editScreen = document.getElementById("edit-screen");
+  el.editChildLabel = document.getElementById("edit-child-label");
+  el.editCloseBtn = document.getElementById("edit-close-btn");
+  el.editPrevMonthBtn = document.getElementById("edit-prev-month-btn");
+  el.editNextMonthBtn = document.getElementById("edit-next-month-btn");
+  el.editMonthTitle = document.getElementById("edit-month-title");
+  el.editTable = document.getElementById("edit-table");
   el.resultDialog = document.getElementById("result-dialog");
   el.dialogChildName = document.getElementById("dialog-child-name");
   el.dialogTime = document.getElementById("dialog-time");
@@ -148,6 +157,9 @@ function setupEventHandlers() {
   el.absenceCancelBtn.addEventListener("click", closeAbsenceScreen);
   el.absenceSubmitBtn.addEventListener("click", submitAbsenceRecord);
   el.absenceReasonList.addEventListener("change", syncAbsenceOtherInput);
+  el.editCloseBtn.addEventListener("click", closeEditScreen);
+  el.editPrevMonthBtn.addEventListener("click", () => moveEditMonth(-1));
+  el.editNextMonthBtn.addEventListener("click", () => moveEditMonth(1));
   el.dialogOkBtn.addEventListener("click", () => {
     hideOverlay(el.resultDialog);
     currentContext = null;
@@ -291,6 +303,7 @@ function getChildrenByClass(classId) {
 }
 
 function getChildButtonDisabled(record, isToday) {
+  if (selectedMode === "edit") return false;
   if (selectedMode === "absent") return false;
   if (!isToday) return true;
   if (!record || record.status === "欠席") return false;
@@ -298,6 +311,7 @@ function getChildButtonDisabled(record, isToday) {
 }
 
 function canClearRecord(record) {
+  if (selectedMode === "edit") return false;
   if (!record) return false;
   if (selectedMode === "in") return Boolean(record.clock_in);
   if (selectedMode === "out") return Boolean(record.clock_out);
@@ -307,6 +321,11 @@ function canClearRecord(record) {
 function openChildAction(childId) {
   const child = childMaster.find((item) => item.id === childId);
   if (!child) return;
+
+  if (selectedMode === "edit") {
+    openEditScreen(child);
+    return;
+  }
 
   currentContext = {
     child,
@@ -326,6 +345,141 @@ function openChildAction(childId) {
   el.parentActionBtn.classList.toggle("mode-in", selectedMode === "in");
   el.parentActionBtn.classList.toggle("mode-out", selectedMode === "out");
   showOverlay(el.parentScreen);
+}
+
+
+function openEditScreen(child) {
+  currentEditChild = child;
+  currentEditMonth = selectedDateKey.slice(0, 7);
+  renderEditScreen();
+  showOverlay(el.editScreen);
+}
+
+function closeEditScreen() {
+  hideOverlay(el.editScreen);
+  currentEditChild = null;
+}
+
+function moveEditMonth(delta) {
+  if (!currentEditMonth) return;
+  const [yearText, monthText] = currentEditMonth.split("-");
+  const base = new Date(Number(yearText), Number(monthText) - 1 + delta, 1);
+  currentEditMonth = `${base.getFullYear()}-${String(base.getMonth() + 1).padStart(2, "0")}`;
+  renderEditScreen();
+}
+
+function renderEditScreen() {
+  if (!currentEditChild || !currentEditMonth) return;
+
+  const child = currentEditChild;
+  const [yearText, monthText] = currentEditMonth.split("-");
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const lastDay = getLastDay(year, month);
+
+  el.editChildLabel.textContent = `${child.className}組　${getDisplayName(child)}`;
+  el.editMonthTitle.textContent = `${year}年${month}月`;
+
+  const rows = [];
+  rows.push(`
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>登園</th>
+        <th>降園</th>
+        <th>状態</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+  `);
+  rows.push("<tbody>");
+
+  for (let d = 1; d <= lastDay; d += 1) {
+    const dateKey = `${year}-${String(month).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+    const dow = dayOfWeek(dateKey);
+    const record = findRecordById(loadDayData(dateKey), child.id);
+    const statusText = record && record.status === "欠席" ? `欠席${record.reason ? "（" + record.reason + "）" : ""}` : (record && record.status ? record.status : "");
+    const rowClass = dow === 0 ? "sun-col" : dow === 6 ? "sat-col" : "";
+
+    rows.push(`
+      <tr>
+        <td class="${rowClass}">${d}日（${WEEKDAY_NAMES[dow]}）</td>
+        <td><input class="edit-time-input" id="edit-in-${dateKey}" type="time" value="${escapeHtml(record ? record.clock_in : "")}"></td>
+        <td><input class="edit-time-input" id="edit-out-${dateKey}" type="time" value="${escapeHtml(record ? record.clock_out : "")}"></td>
+        <td>${escapeHtml(statusText)}</td>
+        <td class="edit-actions">
+          <button class="edit-save-btn" onclick="saveEditDay('${escapeJs(dateKey)}')">保存</button>
+          <button class="edit-clear-btn" onclick="clearEditDay('${escapeJs(dateKey)}')">クリア</button>
+        </td>
+      </tr>
+    `);
+  }
+
+  rows.push("</tbody>");
+  el.editTable.innerHTML = rows.join("");
+}
+
+function saveEditDay(dateKey) {
+  if (!currentEditChild) return;
+
+  const child = currentEditChild;
+  const clockIn = normalizeTimeText(document.getElementById(`edit-in-${dateKey}`).value);
+  const clockOut = normalizeTimeText(document.getElementById(`edit-out-${dateKey}`).value);
+  const dayData = loadDayData(dateKey);
+  let record = findRecordById(dayData, child.id);
+
+  if (!record && (clockIn || clockOut)) {
+    record = createRecordBase(dateKey, child);
+    dayData.records.push(record);
+  }
+
+  if (!record) return;
+
+  record.clock_in = clockIn;
+  record.clock_out = clockOut;
+
+  if (clockIn || clockOut) {
+    record.status = "出席";
+    record.reason = "";
+  } else if (record.status === "出席") {
+    record.status = "";
+    record.reason = "";
+  }
+
+  dayData.records = (dayData.records || []).filter((item) => item.id !== child.id || hasAnyData(item));
+  saveDayData(dateKey, dayData);
+  renderEditScreen();
+  renderChildrenList();
+  if (document.getElementById("tab-month").classList.contains("active")) {
+    renderMonthlyView();
+  }
+}
+
+function clearEditDay(dateKey) {
+  if (!currentEditChild) return;
+
+  const child = currentEditChild;
+  const dayData = loadDayData(dateKey);
+  const record = findRecordById(dayData, child.id);
+  if (!record) {
+    renderEditScreen();
+    return;
+  }
+
+  record.clock_in = "";
+  record.clock_out = "";
+  if (record.status === "出席") {
+    record.status = "";
+    record.reason = "";
+  }
+
+  dayData.records = (dayData.records || []).filter((item) => item.id !== child.id || hasAnyData(item));
+  saveDayData(dateKey, dayData);
+  renderEditScreen();
+  renderChildrenList();
+  if (document.getElementById("tab-month").classList.contains("active")) {
+    renderMonthlyView();
+  }
 }
 
 function openAbsenceScreen(child) {
@@ -1065,6 +1219,8 @@ function escapeHtml(value) {
 function escapeJs(value) { return String(value ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'"); }
 window.openChildAction = openChildAction;
 window.clearChildRecord = clearChildRecord;
+window.saveEditDay = saveEditDay;
+window.clearEditDay = clearEditDay;
 
 async function setupVersionUi() {
   if (!("serviceWorker" in navigator)) {

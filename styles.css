@@ -265,6 +265,71 @@ thead .sticky-name {
 .absence-other-input:disabled {
   background: #f4f4f4;
 }
+
+.edit-card {
+  width: min(96vw, 980px);
+  max-height: 92vh;
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.edit-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+.edit-child-label {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.edit-month-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.edit-table-wrap {
+  overflow: auto;
+  border: 1px solid #d6dde5;
+  border-radius: 12px;
+}
+.edit-table {
+  width: 100%;
+  min-width: 760px;
+}
+.edit-time-input {
+  height: 42px;
+  min-width: 120px;
+  padding: 0 8px;
+  border: 1px solid #b8c2cc;
+  border-radius: 8px;
+  font-size: 20px;
+}
+.edit-actions {
+  display: flex;
+  gap: 8px;
+}
+.edit-save-btn, .edit-clear-btn {
+  min-height: 40px;
+  min-width: 76px;
+  border: 1px solid #b8c2cc;
+  border-radius: 8px;
+  background: #f3f5f7;
+  font-weight: 700;
+  cursor: pointer;
+}
+.edit-clear-btn {
+  background: #fff2f2;
+  border-color: #e0b2b2;
+  color: #8b3131;
+}
+
 @media (max-width: 640px) {
   body { margin: 10px; }
   .app-title { font-size: 24px; }
@@ -281,6 +346,8 @@ thead .sticky-name {
   .memo-clear-btn { width: 100%; }
   .version-row { grid-template-columns: 1fr; }
   .version-label, .version-value { font-size: 18px; }
-  .month-nav-card { grid-template-columns: 1fr; }
+  .month-nav-card, .edit-month-nav { grid-template-columns: 1fr; }
   .month-nav-btn, .month-title { width: 100%; }
+  .edit-header { flex-direction: column; }
+  .edit-close-btn { width: 100%; }
 }
