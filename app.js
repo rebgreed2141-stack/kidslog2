@@ -1,5 +1,6 @@
 const APP_KEY_PREFIX = "kidslog2_";
 const CSV_HEADER = ["monthKey", "date", "id", "name", "clock_in", "clock_out", "status", "reason", "class_id", "class_name", "teacher"];
+const BACKUP_FILE_NAME = "kidslog2_backup.zip";
 const FIXED_REASONS = ["都合", "早退", "様子見", "熱", "咳", "下痢", "病院", "その他"];
 const TEACHER_BY_CLASS_ID = {};
 const WEEKDAY_NAMES = ["日", "月", "火", "水", "木", "金", "土"];
@@ -610,6 +611,7 @@ function setupAdminButtons() {
     radio.addEventListener("change", handleFacilityChange);
   });
   document.getElementById("backup-btn").addEventListener("click", backupCsv);
+  document.getElementById("server-backup-btn").addEventListener("click", sendBackupToServer);
   document.getElementById("restore-btn").addEventListener("click", () => el.restoreFile.click());
   document.getElementById("restore-file").addEventListener("change", restoreCsv);
   document.getElementById("delete-btn").addEventListener("click", deleteAllData);
@@ -751,21 +753,24 @@ function getStatusSymbol(record) {
   return "";
 }
 
+async function createBackupZipBlob() {
+  const zip = new JSZip();
+  const keys = Object.keys(localStorage).filter((key) => key.startsWith(APP_KEY_PREFIX)).sort();
+  keys.forEach((storageKey) => {
+    const dateKey = storageKey.slice(APP_KEY_PREFIX.length);
+    const dayData = loadDayData(dateKey);
+    zip.file(`${storageKey}.csv`, buildCsvText(dateKey, dayData));
+  });
+  return zip.generateAsync({ type: "blob" });
+}
+
 async function backupCsv() {
   try {
-    const zip = new JSZip();
-    const keys = Object.keys(localStorage).filter((key) => key.startsWith(APP_KEY_PREFIX)).sort();
-    keys.forEach((storageKey) => {
-      const dateKey = storageKey.slice(APP_KEY_PREFIX.length);
-      const dayData = loadDayData(dateKey);
-      zip.file(`${storageKey}.csv`, buildCsvText(dateKey, dayData));
-    });
-
-    const blob = await zip.generateAsync({ type: "blob" });
+    const blob = await createBackupZipBlob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "kidslog2_backup.zip";
+    a.download = BACKUP_FILE_NAME;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -773,6 +778,25 @@ async function backupCsv() {
   } catch (error) {
     console.error(error);
     alert("バックアップに失敗しました");
+  }
+}
+
+async function sendBackupToServer() {
+  try {
+    const blob = await createBackupZipBlob();
+    const response = await fetch(`/api/backup?filename=${encodeURIComponent(BACKUP_FILE_NAME)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/zip" },
+      body: blob
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || "送信失敗");
+    }
+    alert("サーバーに送信しました");
+  } catch (error) {
+    console.error(error);
+    alert("サーバーに送信できませんでした");
   }
 }
 
