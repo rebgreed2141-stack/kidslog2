@@ -781,19 +781,53 @@ async function backupCsv() {
   }
 }
 
+function collectKidslog2JsonPayload() {
+  const items = [];
+  const dateKeyPattern = /^\d{4}-\d{2}-\d{2}$/;
+
+  Object.keys(localStorage).sort().forEach((storageKey) => {
+    if (!storageKey.startsWith(APP_KEY_PREFIX)) return;
+
+    const dateKey = storageKey.slice(APP_KEY_PREFIX.length);
+    if (!dateKeyPattern.test(dateKey)) return;
+
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return;
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (_error) {
+      return;
+    }
+
+    items.push({ storageKey, dateKey, data });
+  });
+
+  return { app: "kidslog2", items };
+}
+
 async function sendBackupToServer() {
   try {
-    const blob = await createBackupZipBlob();
-    const response = await fetch(`/api/backup?filename=${encodeURIComponent(BACKUP_FILE_NAME)}`, {
+    const payload = collectKidslog2JsonPayload();
+
+    if (!payload.items.length) {
+      alert("送信するデータがありません");
+      return;
+    }
+
+    const response = await fetch("/api/kidslog2", {
       method: "POST",
-      headers: { "Content-Type": "application/zip" },
-      body: blob
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
+
     const result = await response.json().catch(() => ({}));
     if (!response.ok || !result.ok) {
       throw new Error(result.message || "送信失敗");
     }
-    alert("サーバーに送信しました");
+
+    alert(`サーバーに送信しました\n${result.count || payload.items.length}件`);
   } catch (error) {
     console.error(error);
     alert("サーバーに送信できませんでした");
