@@ -1,4 +1,6 @@
 const APP_KEY_PREFIX = "kidslog2_";
+const SERVER_URL_STORAGE_KEY = "kidslog2_server_url";
+const DEFAULT_SERVER_URL = "http://192.168.1.60:3000";
 const CSV_HEADER = ["monthKey", "date", "id", "name", "clock_in", "clock_out", "status", "reason", "class_id", "class_name", "teacher"];
 const BACKUP_FILE_NAME = "kidslog2_backup.zip";
 const FIXED_REASONS = ["都合", "早退", "様子見", "熱", "咳", "下痢", "病院", "その他"];
@@ -86,6 +88,8 @@ function cacheElements() {
   el.dialogMessage = document.getElementById("dialog-message");
   el.dialogOkBtn = document.getElementById("dialog-ok-btn");
   el.restoreFile = document.getElementById("restore-file");
+  el.serverUrlInput = document.getElementById("server-url-input");
+  el.serverUrlSaveBtn = document.getElementById("server-url-save-btn");
   el.currentVersion = document.getElementById("current-version");
   el.latestVersion = document.getElementById("latest-version");
   el.updateBtn = document.getElementById("update-btn");
@@ -607,6 +611,12 @@ function showAbsenceResultDialog(child, reason) {
 }
 
 function setupAdminButtons() {
+  if (el.serverUrlInput) {
+    el.serverUrlInput.value = getSavedServerUrl();
+  }
+  if (el.serverUrlSaveBtn) {
+    el.serverUrlSaveBtn.addEventListener("click", saveServerUrlFromInput);
+  }
   document.querySelectorAll('input[name="facility"]').forEach((radio) => {
     radio.addEventListener("change", handleFacilityChange);
   });
@@ -615,6 +625,32 @@ function setupAdminButtons() {
   document.getElementById("restore-btn").addEventListener("click", () => el.restoreFile.click());
   document.getElementById("restore-file").addEventListener("change", restoreCsv);
   document.getElementById("delete-btn").addEventListener("click", deleteAllData);
+}
+
+
+function normalizeServerUrl(value) {
+  let url = String(value || "").trim();
+  if (!url) return DEFAULT_SERVER_URL;
+  url = url.replace(/\/+$/, "");
+  if (!/^https?:\/\//i.test(url)) {
+    url = `http://${url}`;
+  }
+  return url;
+}
+
+function getSavedServerUrl() {
+  return normalizeServerUrl(localStorage.getItem(SERVER_URL_STORAGE_KEY) || DEFAULT_SERVER_URL);
+}
+
+function saveServerUrlFromInput() {
+  const url = normalizeServerUrl(el.serverUrlInput ? el.serverUrlInput.value : "");
+  localStorage.setItem(SERVER_URL_STORAGE_KEY, url);
+  if (el.serverUrlInput) el.serverUrlInput.value = url;
+  alert("サーバーURLを保存しました");
+}
+
+function buildApiUrl(apiPath) {
+  return `${getSavedServerUrl()}${apiPath}`;
 }
 
 function getSavedFacility() {
@@ -816,7 +852,7 @@ async function sendBackupToServer() {
       return;
     }
 
-    const response = await fetch("/api/kidslog2", {
+    const response = await fetch(buildApiUrl("/api/kidslog2"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)

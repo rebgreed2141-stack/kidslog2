@@ -25,7 +25,46 @@ button, select, input { font: inherit; }
 .tab-btn.active { background: #dfe9f3; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-.header-card, .control-card, .legend-card, .child-row, .admin-wrap, .version-wrap, .month-nav-card, .table-wrap, .memo-wrap {
+.header-card, .control-card, .legend-card, .child-row, 
+.server-card {
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.server-card-title {
+  border-left: 4px solid #2563eb;
+  padding-left: 8px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.server-url-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.server-url-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid #b8c2cc;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 18px;
+}
+.server-url-save-btn {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 10px;
+  border: 1px solid #cfd8e3;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.server-url-save-btn:hover { background: #f7fbff; }
+.admin-wrap, .version-wrap, .month-nav-card, .table-wrap, .memo-wrap, .server-card {
   border: 1px solid #d6dde5; border-radius: 14px; background: #fbfdff;
 }
 .header-card { padding: 16px 18px; margin-bottom: 14px; }
