@@ -305,16 +305,7 @@
       "gender": "m",
       "birthDate": "2021/12/27"
     },
-     {
-      "id": "c0032",
-      "classId": "koguma",
-      "className": "こぐま",
-      "no": 5,
-      "name": "こばやし　りお",
-      "gender": "m",
-      "birthDate": "2024/3/1"
-    },
-     {
+    {
       "id": "c0033",
       "classId": "momiji",
       "className": "もみじ",
