@@ -466,6 +466,15 @@
     "name":"吉川　来愛",
     "gender":"f",
     "birthDate":"2025/10/03"
+  },
+   {
+    "id":"c0050",
+    "classId":"donguri",
+    "className":"どんぐり",
+    "no":3,
+    "name":"重富　奏人",
+    "gender":"m",
+    "birthDate":"2024/9/14"
   }
 ]
 }
