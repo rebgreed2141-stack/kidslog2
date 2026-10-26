@@ -322,6 +322,15 @@
       "name": "おおしま　みお",
       "gender": "f",
       "birthDate": "2025/7/19"
+    },
+     {
+      "id": "c0035",
+      "classId": "donguri",
+      "className": "どんぐり",
+      "no": 4,
+      "name": "のしろ　あやみ",
+      "gender": "f",
+      "birthDate": "2024/10/9"
     }
   ]
 }
