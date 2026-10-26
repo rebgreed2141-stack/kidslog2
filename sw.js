@@ -1,4 +1,4 @@
-const CACHE_NAME = "kidslog2-cache-v4";
+const CACHE_NAME = "kidslog2-cache-v5";
 const CORE_ASSETS = [
   "./",
   "./index.html",

@@ -390,3 +390,13 @@ thead .sticky-name {
   .edit-header { flex-direction: column; }
   .edit-close-btn { width: 100%; }
 }
+
+/* 管理画面パスワード入力 */
+.admin-password-dialog { border: 0; border-radius: 12px; padding: 24px; width: min(90vw, 360px); box-shadow: 0 8px 35px #0004; }
+.admin-password-dialog::backdrop { background: #0008; }
+.admin-password-dialog form { display: flex; flex-direction: column; gap: 12px; }
+.admin-password-dialog h2 { margin: 0 0 6px; font-size: 1.2rem; }
+.admin-password-dialog input { box-sizing: border-box; width: 100%; font-size: 1.1rem; padding: 10px; border: 1px solid #aaa; border-radius: 6px; }
+.admin-password-error { color: #b42318; min-height: 1.2em; margin: 0; }
+.admin-password-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.admin-password-actions button { padding: 9px 16px; border-radius: 6px; cursor: pointer; }

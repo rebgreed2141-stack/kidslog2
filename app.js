@@ -104,10 +104,44 @@ function cacheElements() {
   el.memoSaveLabel = document.getElementById("memo-save-label");
 }
 
+const ADMIN_ENTRY_PASSWORD = "123456";
+
+function requestAdminAccess() {
+  const dialog = document.getElementById("admin-password-dialog");
+  const input = document.getElementById("admin-password-input");
+  const error = document.getElementById("admin-password-error");
+  input.value = "";
+  error.textContent = "";
+  dialog.showModal();
+  input.focus();
+}
+
 function setupTabs() {
+  const adminDialog = document.getElementById("admin-password-dialog");
+  const adminInput = document.getElementById("admin-password-input");
+  const adminError = document.getElementById("admin-password-error");
+  document.getElementById("admin-password-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (adminInput.value !== ADMIN_ENTRY_PASSWORD) {
+      adminError.textContent = "パスワードが違います。";
+      adminInput.select();
+      return;
+    }
+    adminDialog.close();
+    adminAccessGranted = true;
+    document.querySelector('.tab-btn[data-tab="admin"]').click();
+  });
+  adminInput.addEventListener("input", () => { adminError.textContent = ""; });
+  document.getElementById("admin-password-cancel").addEventListener("click", () => adminDialog.close());
+  let adminAccessGranted = false;
   const buttons = document.querySelectorAll(".tab-btn");
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
+      if (button.dataset.tab === "admin" && !adminAccessGranted) {
+        requestAdminAccess();
+        return;
+      }
+      if (button.dataset.tab !== "admin") adminAccessGranted = false;
       buttons.forEach((btn) => btn.classList.remove("active"));
       document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.remove("active"));
       button.classList.add("active");

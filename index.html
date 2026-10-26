@@ -19,6 +19,19 @@
     </div>
   </div>
 
+  <dialog id="admin-password-dialog" class="admin-password-dialog">
+    <form id="admin-password-form">
+      <h2>管理画面のパスワード</h2>
+      <label for="admin-password-input">パスワードを入力してください。</label>
+      <input id="admin-password-input" type="password" autocomplete="off" required>
+      <p id="admin-password-error" class="admin-password-error" aria-live="polite"></p>
+      <div class="admin-password-actions">
+        <button type="button" id="admin-password-cancel">キャンセル</button>
+        <button type="submit">確認</button>
+      </div>
+    </form>
+  </dialog>
+
   <section id="tab-record" class="tab-panel active">
     <div class="header-card">
       <div>
